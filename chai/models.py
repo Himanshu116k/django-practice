@@ -30,7 +30,7 @@ class ChaiReview(models.Model):
     date_added = models.DateTimeField(default=timezone.now)   
     
     def __str__(self):
-        return str(self.name)     
+        return f'{self.user.username} review for {self.chai.name} '   
     
 #Many to many
 
@@ -41,3 +41,14 @@ class Store(models.Model):
     
     def __str__(self):
         return str(self.name) 
+    
+#one to one relationship
+
+class ChaiCertificate(models.Model):
+    chai = models.OneToOneField(ChaiVarity,on_delete=models.CASCADE,related_name='certificate')
+    certificate_no = models.CharField(max_length=50)
+    date_issued = models.DateField()
+    
+    def __str__(self):
+        return f'Certificate {self.certificate_no}'
+    
